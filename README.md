@@ -17,7 +17,6 @@ Kotlin Kaffe is a small café. In this workshop you follow one order from start 
 3. Click the green arrow next to `fun main()` to run it.
 4. Change the design. Then uncomment the checks under `Checks for your new design` and run again until every line says `OK`.
 
-Work in pairs: one person types, the other navigates. Switch halfway.
 
 ## Step 1 – Build the drink (Decorator)
 
@@ -83,18 +82,3 @@ Try an interface `OrderListener` with `fun orderPlaced(order: PricedOrder)`, and
 **Stretch:** Add `unsubscribe`, so a customer can turn off receipt emails. Then try replacing your list of listeners with a `MutableSharedFlow<PricedOrder>` from kotlinx.coroutines (already added as a dependency).
 
 ---
-
-## For the facilitator
-
-- Reference solutions are in `solutions/`, and every check there passes. **Remove the folder, or move it to a separate branch, before sharing the repo with participants.** If you remove it, also remove `"solutions"` from `settings.gradle.kts`.
-- For the wrap-up, run `solutions/src/main/kotlin/kaffe/solution/FullOrder.kt`. It runs all three steps in a row: drink → price → notify.
-- `antipatterns/` solves the same tasks (stretch goals included) **without** the patterns, the way you might under deadline pressure. Every check passes there too, so the comparison is about design, not correctness. Each file starts with a list of what hurts. Put a file next to its counterpart in `solutions/` and ask: *"What do you have to change to add the next add-on, campaign or reaction?"*
-
-  | Step | Antipattern | What a new requirement costs |
-  | --- | --- | --- |
-  | 1 | One class with a flag (or counter) per add-on | Edit the constructor, `cost()` and `description()`. The order of add-ons is fixed in the code |
-  | 2 | `Checkout("HAPPY_HOUR")` with a `when` on strings | Edit `Checkout`. Every combination of campaigns needs its own branch. A typo crashes at runtime |
-  | 3 | Every reaction is a constructor parameter of `OrderService` | Edit `OrderService` and every place that creates one. Unsubscribe needs a flag per reaction |
-
-  `antipatterns/src/main/kotlin/kaffe/antipattern/FullOrder.kt` prints the same journey as the solution's `FullOrder.kt`. Remove `antipatterns/` together with `solutions/` before sharing (and remove `"antipatterns"` from `settings.gradle.kts`).
-- If someone can't get Gradle working, every task file also works in the [Kotlin Playground](https://play.kotlinlang.org) if you paste `Model.kt` and `Verify.kt` (and `Reactions.kt` for step 3) into the same window. Remove the `package` and `import` lines first.
